@@ -1,4 +1,4 @@
-## Install Jenkins and get started with pipelines.
+## Install Jenkins and get started with Jenkins pipelines.
 
 [1. Windows]
 
