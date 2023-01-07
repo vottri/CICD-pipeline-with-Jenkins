@@ -1,5 +1,13 @@
 
 
+Download .NET SDK 6.0 (https://dotnet.microsoft.com/en-us/download/dotnet/6.0).
+
+![dotnet1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/dotnet1.png)
+
+Download ASP.NET Core Runtime 3.1 (https://dotnet.microsoft.com/en-us/download/dotnet/3.1).
+
+![dotnet2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/dotnet2.png)
+
 Download Jenkins (https://www.jenkins.io/download/).
 
 ![jenkins](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/jenkins.png)
@@ -12,6 +20,51 @@ Download Git 2.39.0 for Windows (https://git-scm.com/download/win).
 
 ![git](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git.png)
 
+Download ACME Client for Windows.
+
+![acme](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme.png)
+
+Downloaded Files.
+
+![downloads](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/downloads.png)
+
+
+
+![web1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web1.png)
+
+Click Edit. Change Port to 8088. Click OK.
+
+![web2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web2.png)
+
+
+
+![web3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web3.png)
+
+
+
+![web4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web4.png)
+
+
+
+![web5](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web5.png)
+
+
+
+![web6](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web6.png)
+
+
+Install .NET SDK 6.0
+
+![dotnet6](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/dotnet6.png)
+
+![dotnet3](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/dotnet3.png)
+
+Install ASP.NET Core Runtime 3.1 
+
+![dotnet4](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/dotnet4.png)
+
+
+![dotnet5](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/dotnet5.png)
 
 Install Git on Windows
 
@@ -27,7 +80,7 @@ Go to your Downloads folder. Double click on downloaded Git application. Click *
 
 ![git3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git3.png)
 
-Select "Git from the command line and also from 3rd-party software" and Click ***Next***.
+***Next***.
 
 ![git4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git4.png)
 
@@ -51,7 +104,7 @@ Select “Checkout as-is,Commit Unix-Style line endings” and Click ***Next***.
 
 ![git9](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git9.png)
 
-***Next***.
+Tick "Enable symbolic links" and click ***Next***.
 
 ![git10](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git10.png)
 
@@ -68,15 +121,29 @@ Install Java on Windows.
 Go to where you have downloaded the JDK application on your machine and double click the application. Click ***Next*** to start the installation.
 
 
-
 ***Next***.
 
 
 
 Wait till the installation is completed and click ***Close***.
 
+![jv1](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv1.png)
 
 
+![jv2](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv2.png)
+
+
+![jv3](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv3.png)
+
+
+![jv4](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv4.png)
+
+![jv5](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv5.png)
+![jv6](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv6.png)
+![jv7](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv7.png)
+
+
+![jv8](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv8.png)
 
 
 Double click on the Jenkins installation file to start the installation. You should see the Jenkins welcome page. Click ***Next***.
@@ -109,7 +176,7 @@ Click ***Install***.
 
 Once Jenkins is installed, Click ***Finish***.
 
-
+![jenkins15](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jenkins15.png)
 
 Open your web browser and type the URL http://localhost:8080. You should see the Jenkins initial setup screen.  
 
@@ -138,3 +205,4 @@ Click the "Start using Jenkins" button.
 Jenkins Welcome Dashboard.
 
 ![jenkins14](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/jenkins14.png)
+
