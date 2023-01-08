@@ -1,4 +1,33 @@
 
+============================================================================================
+
+Contents
+
+[1. Lab Setup](#1)
+
+[2. Download](#2)
+
+[3. Installing IIS and ASP.NET Modules](#3)
+
+[4. Installing .NET SDK ](#4)
+
+[5. Installing Git](#5)
+
+[6. Installing Java SDK](#6)
+
+[7. Installing Jenkins](#7)
+
+[8. Configuring Jenkins](#8)
+
+[9. Creating Jenkins Pipeline ](#9)
+
+[10. domain and ssl](#10)
+
+============================================================================================
+
+## 1. Lab Setup <a name="1"></a>
+
+## 2. Download <a name="2"></a>
 
 Download .NET SDK 6.0 (https://dotnet.microsoft.com/en-us/download/dotnet/6.0).
 
@@ -8,7 +37,7 @@ Download ASP.NET Core Runtime 3.1 (https://dotnet.microsoft.com/en-us/download/d
 
 ![dotnet2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/dotnet2.png)
 
-Download Jenkins (https://www.jenkins.io/download/).
+Download Jenkins for Windows (https://www.jenkins.io/download/).
 
 ![jenkins](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/jenkins.png)
 
@@ -28,30 +57,63 @@ Downloaded Files.
 
 ![downloads](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/downloads.png)
 
+## 3. Installing IIS and ASP.NET Modules <a name="3"></a>
 
+Installing IIS Server
+
+On Windows Server, go to Server Manager. Click on the "Add roles and features" on the dashboard. Click ***Next*** to proceed.
+
+Select Role-based or feature-based installation, and then click ***Next***.
+
+Select the server.
+
+![iis1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/iis1.png)
+
+Choose the "Web Server" option.
+
+![iis2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/iis2.png)
+
+Choose as below.
+
+![iis3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/iis3.png)
+
+Continue to proceed with below options.
+
+![iis4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/iis4.png)
+
+In the final screen, click the "Install" button to begin the installation. Once IIS has been installed, click "Close".
+
+Configuring IIS Server
+
+Open Windows Explorer. Create a new directory for your web site.
 
 ![web1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web1.png)
 
-Click Edit. Change Port to 8088. Click OK.
+In "Server Manager" Dashboard. Go to "Tools". Open "Internet Information Services Manager".
+
+In IIS, you will have an initial site set up called "Default Web Site". We are not gonna use it.
+
+Right-click "Default Web Site". Click "Edit Bindings". 
 
 ![web2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web2.png)
 
-
+When "Site Bindings" dialogue box appears, click "Edit". Change Port to 8088. Click OK.
 
 ![web3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web3.png)
 
+Creata a new website.
 
+Right-click "Sites". Choose "Add Website".
 
 ![web4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web4.png)
 
-
+Fill in the required information as below. Then Click OK.
 
 ![web5](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web5.png)
 
-
-
 ![web6](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web6.png)
 
+## 4. Installing .NET SDK <a name="4"></a>
 
 Install .NET SDK 6.0
 
@@ -66,7 +128,7 @@ Install ASP.NET Core Runtime 3.1
 
 ![dotnet5](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/dotnet5.png)
 
-Install Git on Windows
+## 5. Installing Git <a name="5"></a>
 
 Go to your Downloads folder. Double click on downloaded Git application. Click ***Next*** to start installation of Git.
 
@@ -116,7 +178,7 @@ Click ***Finish***.
 
 ![git11](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git11.png)
 
-Install Java on Windows.
+## 6. Installing Java SDK <a name="6"></a>
 
 Go to where you have downloaded the JDK application on your machine and double click the application. Click ***Next*** to start the installation.
 
@@ -145,6 +207,7 @@ Wait till the installation is completed and click ***Close***.
 
 ![jv8](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv8.png)
 
+## 7. Installing Jenkins <a name="7"></a>
 
 Double click on the Jenkins installation file to start the installation. You should see the Jenkins welcome page. Click ***Next***.
 
@@ -206,3 +269,11 @@ Jenkins Welcome Dashboard.
 
 ![jenkins14](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/jenkins14.png)
 
+
+
+## 8. Configuring Jenkins <a name="8"></a>
+
+## 9. Creating Jenkins Pipeline <a name="9"></a>
+
+
+## 10. domain and ssl <a name="10"></a>
