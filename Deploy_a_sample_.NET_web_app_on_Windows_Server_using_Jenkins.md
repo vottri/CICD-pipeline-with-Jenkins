@@ -356,11 +356,74 @@ Click the "Create" button when you are finished.
 
 ![gh8](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/gh8.png)
 
-Once you ate done, restart Jenkins once.
+Once you are done, restart Jenkins once.
 
 ![gh9](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/gh9.png)
 
 ## 9. Creating Jenkins Pipeline <a name="9"></a>
 
+On the Jenkins dashboard, click on "New Item". 
 
+![p0](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p0.png)
+
+Enter an item name, for example, "devopsweb" and select the "Pipeline" project. Then click OK.
+
+![p1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p1.png)
+
+In the Configuration Dashboard, scroll down to the "Pipeline" section, and insert your code here. 
+
+![p2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p2.png)
+
+```sh
+pipeline {
+    
+    agent any  
+
+    stages {
+        stage('Clone') {
+            steps {
+                git branch: 'master',
+                    credentialsId: 'github_key',
+                    url: 'https://github.com/vottri/DevOpsRepo.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                bat '''
+                appcmd stop apppool "devopsweb"
+                dotnet publish DevOpsWeb/DevOpsWeb.csproj -c Release -o C:/www/devopsweb
+                
+                '''
+            }
+        }
+        stage('Clean') {
+            steps {
+                bat '''
+                appcmd start apppool "devopsweb"
+                '''
+            }
+            post {
+                always {
+                    cleanWs()
+                }
+            }
+        }
+    }
+}
+```
+Components of Jenkins Pipeline:
+
+ - The **pipeline** consists of all the instructions to build, test, and deliver software. It is the key component of a Jenkins Pipeline.
+
+ - An **agent** is assigned to execute the pipeline on a node and allocate a workspace for the pipeline.
+
+ - A **stage** is a block that has steps to build, test, and deploy the application. Stages are used to visualize the Jenkins Pipeline processes.
+
+ - A **step** is a single task to be performed, for example, create a directory, run a docker image, delete a file, etc.
+
+ // Any available agent is getting assigned to the pipeline
+
+ // Get code from a GitHub repository
+ 
+ 
 ## 10. domain and ssl <a name="10"></a>
