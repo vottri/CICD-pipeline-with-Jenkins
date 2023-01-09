@@ -425,5 +425,66 @@ Components of Jenkins Pipeline:
 
  // Get code from a GitHub repository
  
+ ![p3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p3.png)
+ 
+ 
+ ![p4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p4.png)
+ 
+ 
+ ![p5](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p5.png)
+ 
+ 
+ ![p6](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p6.png)
+ 
+ 
+ ![p7](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p7.png)
+ 
+ 
+ 
+ ![p8](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p8.png)
+ 
+ 
+ 
+ ![p9](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p9.png)
+ 
+ 
+ 
+ ![p10](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p10.png)
+ 
+ ![p11](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p11.png)
+ 
+ ![p12](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p12.png)
+ 
+ ![p13](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p13.png)
+ 
+ ![p14](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p14.png)
+ 
+ ![p15](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p15.png)
+ 
+ 
+ ![p16](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p16.png)
+ 
+ ![p17](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p17.png)
+ 
+ 
+ ![p18](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p18.png)
+ 
+ ![p19](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p19.png)
+ 
+ 
+ 
+ 
  
 ## 10. domain and ssl <a name="10"></a>
+
+
+ ![acme0](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme0.png)
+ 
+ 
+ ![acme1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme1.png)
+ 
+ 
+ 
+ ![acme2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme2.png)
+
+
