@@ -421,76 +421,108 @@ Components of Jenkins Pipeline:
 
  - A **step** is a single task to be performed, for example, create a directory, run a docker image, delete a file, etc.
 
- // Any available agent is getting assigned to the pipeline
+// Any available agent is getting assigned to the pipeline
 
- // Get code from a GitHub repository
+// Get code from a GitHub repository
  
- ![p3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p3.png)
+![p3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p3.png)
  
- You can hover the cursor over the stages in "Stage View" section and choose "View Logs" to see detailed logs of every stages.
+You can hover the cursor over the stages in "Stage View" section and choose "View Logs" to see detailed logs of every stages.
  
- Logs from "Clone" Stage:
+Logs from "Clone" Stage:
  
- ![p4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p4.png)
+![p4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p4.png)
  
- Logs from "Build" Stage:
+Logs from "Build" Stage:
  
- ![p5](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p5.png)
+![p5](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p5.png)
  
- Logs from "Clean" Stage:
+Logs from "Clean" Stage:
  
- ![p6](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p6.png)
+![p6](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p6.png)
  
- Your website directory after Jenkins pipeline finishes running.
+Your website directory after Jenkins pipeline finishes running.
  
- ![p7](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p7.png)
+![p7](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p7.png)
  
+You can also check your website in IIS Manager.
  
+![p8](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p8.png)
  
- ![p8](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p8.png)
+Or simply view it by typing "localhost" in web browser.
  
- 
- 
- ![p9](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p9.png)
- 
- 
- 
- ![p10](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p10.png)
- 
- ![p11](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p11.png)
- 
- ![p12](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p12.png)
- 
- ![p13](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p13.png)
- 
- ![p14](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p14.png)
- 
- ![p15](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p15.png)
- 
- 
- ![p16](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p16.png)
- 
- ![p17](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p17.png)
- 
- 
- ![p18](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p18.png)
- 
- ![p19](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p19.png)
+![p9](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p9.png)
  
  
  
+Visit GitHub and sign into your account. Modify your code and commit changes.
  
+![p10](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p10.png)
  
-## 10. domain and ssl <a name="10"></a>
+Head over to Jenkins Dashboard and click "Build Now" to make Jenkins pipeline runs one more time.
+
+![p11](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p11.png)
+ 
+In your web browser, refreash the "localhost" page to view the changes.
+
+![p12](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p12.png)
+
+## 10. Publish your website and secure it with SSL <a name="10"></a>
+
+Your web server (Azure VMs) already has an external IP Address due to it is being deployed on Azure Cloud. 
+
+![p13](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p13.png)
+
+You can test it by accessing your website over the Internet with the above IP Address.
+ 
+![p14](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p14.png)
+
+Register a Domain Name for your website and make sure it DNS record point to your public IP address.
+ 
+![p15](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p15.png)
+ 
+Modify your website hostname by editing its bindings in IIS Manager.
+
+![p16](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p16.png)
+
+Access your website using registered domain name.
+ 
+![p17](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p17.png)
 
 
- ![acme0](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme0.png)
+Extract the downloaded win-acme.v2 zipped files
+
+![acme0](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme0.png)
+ 
+Run wacs.exe (this requires administrator privileges).
+
+Choose N in the main menu to create a new certificate with default settings.
+
+Continue to answer the questions to determine the domain name that you want to include in the certificate. This can be derived from the bindings of an IIS site, or you can input them manually.
+
+![acme1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme1.png)
+
+A registration is created with the ACME server, if no existing one can be found. You will be asked to agree to its terms of service and to provide an email address that the administrators can use to contact you.
+
+The program negotiates with ACME server to try and prove your ownership of the domain(s) that you want to create the certificate for. 
+
+After the proof has been provided, the program gets the new certificate from the ACME server and updates or creates IIS bindings as required.
+
+![acme2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme2.png)
+
+After you are done with the script, type Q to quit.
+
+Acces your website with HTTPS.
+
+![p18](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p18.png)
+
+Verify its certificate.
+
+![p19](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p19.png)
  
  
- ![acme1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme1.png)
  
  
  
- ![acme2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme2.png)
 
 
