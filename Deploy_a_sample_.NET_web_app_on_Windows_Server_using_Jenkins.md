@@ -187,7 +187,7 @@ Click ***Finish***.
 
 ## 6. Installing Java SDK <a name="6"></a>
 
-### Installing Java SDK
+### Install Java
 
 Go to where you have downloaded the JDK application on your machine and double click the application. Click ***Next*** to start the installation.
 
@@ -201,7 +201,7 @@ Wait till the installation is completed and click ***Close***.
 
 ![jv3](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv3.png)
 
-### Configuring Environment Variables
+### Configure Environment Variables
 
 Open the Windows Run prompt, type ***sysdm.cpl*** and hit Enter.
 
@@ -427,15 +427,21 @@ Components of Jenkins Pipeline:
  
  ![p3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p3.png)
  
+ You can hover the cursor over the stages in "Stage View" section and choose "View Logs" to see detailed logs of every stages.
+ 
+ Logs from "Clone" Stage:
  
  ![p4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p4.png)
  
+ Logs from "Build" Stage:
  
  ![p5](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p5.png)
  
+ Logs from "Clean" Stage:
  
  ![p6](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p6.png)
  
+ Your website directory after Jenkins pipeline finishes running.
  
  ![p7](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p7.png)
  
