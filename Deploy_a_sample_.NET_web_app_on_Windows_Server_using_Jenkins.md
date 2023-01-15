@@ -187,7 +187,7 @@ Click ***Finish***.
 
 ## 6. Installing Java SDK <a name="6"></a>
 
-### Install Java
+### Install Java Development Kit
 
 Go to where you have downloaded the JDK application on your machine and double click the application. Click ***Next*** to start the installation.
 
@@ -201,7 +201,7 @@ Wait till the installation is completed and click ***Close***.
 
 ![jv3](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv3.png)
 
-### Configure Environment Variables
+### Set the Path for the Environmental Variable for JDK
 
 Open the Windows Run prompt, type ***sysdm.cpl*** and hit Enter.
 
@@ -271,7 +271,7 @@ Once Jenkins is installed, Click ***Finish***.
 
 ## 8. Configuring Jenkins <a name="8"></a>
 
-### Access Jenkins
+### Run Jenkins for the first time
 
 Complete Jenkins Installation.
 
@@ -303,7 +303,7 @@ Jenkins Welcome Dashboard.
 
 ![jenkins14](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/jenkins14.png)
 
-### Jenkins / GitHub Integration
+### Connecting Jenkins to Github
 
 **Create a Personal Access Token in GitHub**
 
