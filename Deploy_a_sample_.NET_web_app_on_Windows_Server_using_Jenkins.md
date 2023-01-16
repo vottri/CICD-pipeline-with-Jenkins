@@ -21,7 +21,7 @@ Contents
 
 [9. Creating Jenkins Pipeline ](#9)
 
-[10. domain and ssl](#10)
+[10. Publishing your website and securing it with SSL](#10)
 
 ============================================================================================
 
@@ -149,6 +149,14 @@ Go to your Downloads folder. Double click on downloaded Git application. Click *
 
 ![git3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git3.png)
 
+Choose "Use Notepad as Git default editor". Click ***Next***.
+
+![git3-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git3-1.png)
+
+***Next***.
+
+![git3-2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git3-2.png)
+
 ***Next***.
 
 ![git4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git4.png)
@@ -157,9 +165,9 @@ Go to your Downloads folder. Double click on downloaded Git application. Click *
 
 ![git5](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git5.png)
 
-Select “Checkout as-is,Commit Unix-Style line endings” and Click ***Next***.
+***Next***.
 
-![git6](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git6.png)
+![git6-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git6-1.png)
 
 ***Next***.
 
@@ -185,9 +193,9 @@ Click ***Finish***.
 
 ![git11](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git11.png)
 
-## 6. Installing Java SDK <a name="6"></a>
+## 6. Installing Java Development Kit <a name="6"></a>
 
-### Install Java Development Kit
+### Install JDK
 
 Go to where you have downloaded the JDK application on your machine and double click the application. Click ***Next*** to start the installation.
 
@@ -208,7 +216,6 @@ Open the Windows Run prompt, type ***sysdm.cpl*** and hit Enter.
 In the new window that opens, click on the "Advanced" tab and then click on the "Environment Variables" button.
 
 ![jv4](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv4.png)
-
 
 ![jv5](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv5.png)
 
@@ -360,7 +367,11 @@ Once you are done, restart Jenkins once.
 
 ![gh9](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/gh9.png)
 
+Confirm the restart and wait for Jenkins to come back up.  When it does, log in with the username and password of the admin user you created earlier.
+
 ## 9. Creating Jenkins Pipeline <a name="9"></a>
+
+### Create a pipeline to build your application
 
 On the Jenkins dashboard, click on "New Item". 
 
@@ -370,9 +381,21 @@ Enter an item name, for example, "devopsweb" and select the "Pipeline" project. 
 
 ![p1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p1.png)
 
-In the Configuration Dashboard, scroll down to the "Pipeline" section, and insert your code here. 
+In the Configuration Dashboard, click the "Pipeline" button on the left menu:
+
+Scroll down to the "Script" section, and insert the steps needed for running a Jenkins Pipeline.
 
 ![p2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p2.png)
+
+Components of Jenkins Pipeline:
+
+ - The **pipeline** consists of all the instructions to build, test, and deliver software. It is the key component of a Jenkins Pipeline.
+
+ - An **agent** is assigned to execute the pipeline on a node and allocate a workspace for the pipeline.
+
+ - A **stage** is a block that has steps to build, test, and deploy the application. Stages are used to visualize the Jenkins Pipeline processes.
+
+ - A **step** is a single task to be performed, for example, create a directory, run a docker image, delete a file, etc.
 
 ```sh
 pipeline {
@@ -411,20 +434,21 @@ pipeline {
     }
 }
 ```
-Components of Jenkins Pipeline:
 
- - The **pipeline** consists of all the instructions to build, test, and deliver software. It is the key component of a Jenkins Pipeline.
+**agent** any      // *Any available agent is getting assigned to the pipeline*
 
- - An **agent** is assigned to execute the pipeline on a node and allocate a workspace for the pipeline.
+**stage**('Clone') // *Retrieve code from a GitHub repository*
 
- - A **stage** is a block that has steps to build, test, and deploy the application. Stages are used to visualize the Jenkins Pipeline processes.
+**stage**('Build') // *Compile the application, read through its dependencies specified in the project file, publish the resulting set of files to a folder* 
 
- - A **step** is a single task to be performed, for example, create a directory, run a docker image, delete a file, etc.
+**steps**
+```sh
+appcmd stop / start apppool  // Stop / Start an IIS Application Pool
 
-// Any available agent is getting assigned to the pipeline
+dotnet publish               // Publish the application and its dependencies to a folder for deployment to a hosting system
+```
+**stage**('Clean') // *Clean the Workspace. (it is a good practice to erase any files from the workspace after pipelines execution)*
 
-// Get code from a GitHub repository
- 
 ![p3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p3.png)
  
 You can hover the cursor over the stages in "Stage View" section and choose "View Logs" to see detailed logs of every stages.
@@ -453,7 +477,7 @@ Or simply view it by typing "localhost" in web browser.
  
 ![p9](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p9.png)
  
- 
+### Use Jenkins pipeline to build your applications again after you make some code changes and commit to a Git repository. 
  
 Visit GitHub and sign into your account. Modify your code and commit changes.
  
@@ -467,7 +491,9 @@ In your web browser, refreash the "localhost" page to view the changes.
 
 ![p12](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p12.png)
 
-## 10. Publish your website and secure it with SSL <a name="10"></a>
+## 10. Publishing your website and securing it with SSL <a name="10"></a>
+
+### Access your website using domain name
 
 Your web server (Azure VMs) already has an external IP Address due to it is being deployed on Azure Cloud. 
 
@@ -485,18 +511,19 @@ Modify your website hostname by editing its bindings in IIS Manager.
 
 ![p16](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p16.png)
 
-Access your website using registered domain name.
+Try access your website using the registered domain name.
  
 ![p17](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p17.png)
 
+### Create and install certificate for your website
 
 Extract the downloaded win-acme.v2 zipped files
 
 ![acme0](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme0.png)
  
-Run wacs.exe (this requires administrator privileges).
+Run **wacs.exe** (this requires administrator privileges).
 
-Choose N in the main menu to create a new certificate with default settings.
+Choose **N** in the main menu to create a new certificate with default settings.
 
 Continue to answer the questions to determine the domain name that you want to include in the certificate. This can be derived from the bindings of an IIS site, or you can input them manually.
 
@@ -510,7 +537,7 @@ After the proof has been provided, the program gets the new certificate from the
 
 ![acme2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/acme2.png)
 
-After you are done with the script, type Q to quit.
+After you are done with the script, type **Q** to quit.
 
 Acces your website with HTTPS.
 
@@ -519,10 +546,3 @@ Acces your website with HTTPS.
 Verify its certificate.
 
 ![p19](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p19.png)
- 
- 
- 
- 
- 
-
-
