@@ -1,12 +1,40 @@
 
+============================================================================================
+
+Contents
+
+[1. Lab Setup](#1)
+
+[2. Installing Git](#2)
+
+[3. Installing .NET](#3)
+
+[4. Installing Java ](#4)
+
+[5. Installing Jenkins](#5)
+
+[6. Configuring Jenkins](#6)
+
+[7. web](#7)
+
+[8. Installing Nginx](#8)
+
+[9. domain](#9)
+
+[10. Configuring SSL Certficate](#9)
+
+============================================================================================
+
+## 1. Lab Setup <a name="1"></a>
 
 Update your system
 ```sh
 sudo apt-get update
 ```
 
+sudo apt-get install apt-transport-https wget 
 
-## Installing Git
+## 2. Installing Git <a name="2"></a>
 
 Git is likely already installed in your Ubuntu 20.04 server. You can confirm this is the case on your server with the following command:
 
@@ -22,7 +50,7 @@ However, if you did not get output of a Git version number, you can install Git 
 sudo apt-get install git
 ```
 
-## Installing .NET
+## 3. Installing .NET <a name="3"></a>
 
 **Check whether .NET is already installed**
 
@@ -38,7 +66,6 @@ Before installing .NET, you’ll need to register the Microsoft key, register th
 wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
-sudo apt-get update 
 ```
 
 .NET is made up of the runtime and the SDK. The .NET SDK allows you to create .NET apps and libraries. The runtime allows you to run apps that were made with .NET.
@@ -48,6 +75,7 @@ Install the SDK (which includes the runtime) if you want to develop .NET apps. I
 **Install .NET SDK 6.0**
 
 ```sh
+sudo apt-get update 
 sudo apt-get -y install dotnet-sdk-6.0
 ```
 
@@ -65,7 +93,7 @@ dotnet --version
 
 dotnet --list-sdks and dotnet --list-runtimes
 
-## Installing Java
+## 4. Installing Java <a name="4"></a>
 
 Jenkins requires Java in order to run, yet certain distributions don’t include this by default and some Java versions are incompatible with Jenkins.
 
@@ -84,7 +112,7 @@ sudo apt-get -y install openjdk-11-jre
 
 ![java1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/java1.png)
 
-## Installing Jenkins
+## 5. Installing Jenkins <a name="5"></a>
 
 Before we can install Jenkins through the package manager, we’ll need to add the Jenkins Debian repository. Firstly, we’ll download the official PGP key from the Jenkins server and save it to /usr/share/keyrings/jenkins-keyring.asc:
 
@@ -107,11 +135,11 @@ sudo apt-get -y install jenkins
 
 The package installation will:
 
-•	Setup Jenkins as a daemon launched on start. Run systemctl cat jenkins for more details.
-•	Create a ‘jenkins’ user to run this service.
-•	Direct console log output to systemd-journald. Run journalctl -u jenkins.service if you are troubleshooting Jenkins.
-•	Populate /lib/systemd/system/jenkins.service with configuration parameters for the launch, e.g JENKINS_HOME
-•	Set Jenkins to listen on port 8080. Access this port with your browser to start configuration.
+ - Setup Jenkins as a daemon launched on start. Run systemctl cat jenkins for more details.
+ - Create a ‘jenkins’ user to run this service.
+ - Direct console log output to systemd-journald. Run journalctl -u jenkins.service if you are troubleshooting Jenkins.
+ - Populate /lib/systemd/system/jenkins.service with configuration parameters for the launch, e.g JENKINS_HOME
+ - Set Jenkins to listen on port 8080. Access this port with your browser to start configuration.
 
 Start Jenkins:
 
@@ -121,7 +149,9 @@ sudo systemctl start jenkins
 
 ![jenkins1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins1.png)
 
-Unlock Jenkins
+## 6. Configuring Jenkins <a name="6"></a>
+
+### Unlock Jenkins
 
 Open a web broswer, type [http://Jenkins server public IP:8080] and wait until the Unlock Jenkins page appears.
 
@@ -154,6 +184,8 @@ When the Jenkins is ready page appears, click Start using Jenkins.
 Jenkins Welcome Dashboard.
 
 ![jenkins6](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins6.png)
+
+### Connect Jenkins to Github
 
 **Create a Personal Access Token in GitHub**
 
@@ -211,6 +243,8 @@ Once you are done, restart Jenkins once.
 ```sh
 sudo systemctl restart jenkins
 ```
+
+
 Crate a directory where you deploy your web application
 
 ```sh
@@ -253,12 +287,11 @@ sudo systemctl enable devopsweb.service
 ```
 build
 
+## 8. Installing Nginx <a name="8"></a>
 
-Installing Nginx
+NGINX is an open source software for web serving, reverse proxying, caching, load balancing,... In this lab we use NGINX as a web server.
 
-NGINX is open source software for web serving, reverse proxying, caching, load balancing,... In this lab we use NGINX as a web server.
-
-Install Nginx
+### Install Nginx
 
 ```sh
 sudo apt-get -y install nginx
@@ -271,6 +304,8 @@ sudo systemctl start nginx
 ```
 
 ![nginx](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/nginx.png)
+
+### Host ASP.NET Core website with Nginx
 
 ```sh
 sudo nano /etc/nginx/sites-available/devopsweb
@@ -295,15 +330,62 @@ server {
 sudo ln -s /etc/nginx/sites-available/devopsweb /etc/nginx/sites-enabled/devopsweb
 ```
 
+Restart nginx server.
 
-sudo apt-get install snapd
-
-sudo snap install core
-
-sudo snap install --classic certbot
-
-sudo ln -s /snap/bin/certbot /usr/bin/certbot
-
-sudo certbot --nginx
-
+```sh
 sudo systemctl restart nginx
+```
+
+## 10. Configuring SSL Certificate <a name="9"></a>
+
+Install snapd
+
+```sh
+sudo apt-get install snapd
+```
+
+Ensure that you have the latest version of snapd.
+
+```sh
+sudo snap install core
+sudo snap refresh core
+```
+
+Install Certbot
+
+```sh
+sudo snap install --classic certbot
+```
+
+Ensure that the certbot command can be run.
+
+```sh
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```
+
+Run this command to get a certificate and have Certbot edit your nginx configuration automatically to serve it, turning on HTTPS access in a single step.
+
+```sh
+sudo certbot --nginx
+```
+
+![cert2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/cert2.png)
+
+Continue to answer the question with the appropriate site name and let Certbot handle it.
+
+![cert3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/cert3.png)
+
+You might want to restart your nginx server.
+
+```sh
+sudo systemctl restart nginx
+```
+
+To confirm that your site is set up securely, visit your website with HTTPS.
+
+![https1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/https1.png)
+
+Check SSL Certificate.
+
+![https2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/https2.png)
+
