@@ -15,13 +15,11 @@ Contents
 
 [6. Configuring Jenkins](#6)
 
-[7. web](#7)
+[7. Creating Jenkins Pipeline](#7)
 
-[8. Installing Nginx](#8)
+[8. Hosting ASP.NET Core Web App using Nginx](#8)
 
-[9. domain](#9)
-
-[10. Configuring SSL Certficate](#9)
+[9. Configuring SSL Certficate](#9)
 
 ============================================================================================
 
@@ -228,7 +226,7 @@ Log into your Jenkins web interface using the administrative account you configu
 
 Click on your username in the top-right corner to access your user settings, and from there, click Credentials in the left-hand menu.
 
-![jenkins8](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins8.png)
+![jenkins8-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins8-1.png)
 
 On the next page, click the arrow next to (global) across System (Stores from parent). In the box that appears, click Add credentials:
 
@@ -248,9 +246,9 @@ Once you are done, restart Jenkins once.
 sudo systemctl restart jenkins
 ```
 
-## 7. web <a name="7"></a>
+## 7. Creating Jenkins Pipeline <a name="7"></a>
 
-Create a directory where you deploy your web application
+### Create a directory where you deploy your web application
 
 ```sh
 sudo mkdir -p /www/devopsweb
@@ -258,7 +256,7 @@ sudo chown -R root:jenkins /www/
 sudo chmod -R 775 /www/
 ```
 
-Create a service file for your web application (run your webapp as a service).
+### Create a systemd file for your web application (run your webapp as a service).
 
 ```sh
 sudo nano /etc/systemd/system/devopsweb.service
@@ -289,6 +287,8 @@ Enable the created webapp service
 sudo systemctl enable devopsweb.service
 ```
 
+### Enable Running shell scripts in jenkins
+
 Jenkins talks to your linux server with a user called “jenkins”. But running shell commands which have "sudo" might not worked as the "jenkins" user doesn’t have access to read passwords from your linux server. We might want to tell the Linux Server not to ask password while executing commands for the "jenkins" user.
 
 Edit the /etc/sudoers file to provide permission to Jenkins user.
@@ -305,17 +305,19 @@ sudo usermod -aG sudo jenkins
 
 ![sudo1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/sudo1.png)
 
-Create a pipeline to build your application
+### Create a pipeline to build your application
 
 On the Jenkins dashboard, click on "New Item". 
 
+![jenkins8-3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins8-3.png)
+
 Enter an item name, for example, "devopsweb" and select the "Pipeline" project. Then click OK.
 
-![jenkins8](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins8.png)
+![jenkins8-2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins8-2.png)
 
 In the Configuration Dashboard, click the "Pipeline" button on the left menu:
 
-Scroll down to the "Script" section, and insert the steps needed for running a Jenkins Pipeline.
+Scroll down to the "Script" section, and insert the steps needed for running a Jenkins Pipeline then save the changes.
 
 ![jenkins9](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins9.png)
 
@@ -361,9 +363,27 @@ pipeline {
 }
 ```
 
+--------------------------------------------------------------------------------------------
+Note:
+
+**agent** any      // *Any available agent is getting assigned to the pipeline*
+
+**stage**('Clone') // *Retrieve code from a GitHub repository*
+
+**stage**('Build') // *Compile the application, read through its dependencies specified in the project file, publish the resulting set of files to a folder* 
+
+**steps**
+```sh
+systemctl stop / start       // Stop / Start the web app service
+dotnet publish               // Publish the application and its dependencies to a folder for deployment to a hosting system
+```
+-------------------------------------------------------------------------------------------
+
+After saving your configures:
+
+On the left-side navigation pane, click "Build Now" to start the pipeline. After Jenkins pipeline is done running, the output should look like this.
 
 ![jenkins10](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins10.png)
-
 
 You can hover the cursor over the stages in "Stage View" section and choose "View Logs" to see detailed logs of every stages.
 
@@ -375,19 +395,19 @@ Logs from "Build" Stage:
 
 ![log2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/log2.png)
 
-Logs from Post action: cleaning workspace
+Logs from Post Actions: clean workspace
 
 ![log3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/log3.png)
 
-Your web app directory after the build
+Your web app directory after the build.
 
 ![webapp2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/webapp2.png)
 
-Check your web app service
+Check your web app service.
 
 ![webapp-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/webapp-1.png)
 
-## 8. Installing Nginx <a name="8"></a>
+## 8. Hosting ASP.NET Core Web App using Nginx <a name="8"></a>
 
 NGINX is an open source software for web serving, reverse proxying, caching, load balancing,... In this lab we use NGINX as a web server.
 
@@ -448,13 +468,24 @@ Restart nginx server.
 ```sh
 sudo systemctl restart nginx
 ```
+### Access your website over the Internet
+
+After verifying nginx is working, let’s check your web application is running or not by typing the server's public IP address in the browser.
 
 ![web1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/web1.png)
+
+Register a Domain Name for your website and make sure it DNS record point to your public IP address.
+
+![matbao](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/matbao.jpg)
+
+Modify your nginx web site configuration file
 
 ```sh
 sudo nano /etc/nginx/sites-available/devopsweb
 ```
-Modify the server name with your registered domain name.
+
+Replace the server name with your registered domain name.
+
 ```sh
 server {
     listen 80;
@@ -482,7 +513,7 @@ Acess your web site with the new domain name.
 
 ![web2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/web2.png)
 
-## 10. Configuring SSL Certificate <a name="9"></a>
+## 9. Configuring SSL Certificate <a name="9"></a>
 
 Switch your website from HTTP to HTTPS using Certbot.
 
