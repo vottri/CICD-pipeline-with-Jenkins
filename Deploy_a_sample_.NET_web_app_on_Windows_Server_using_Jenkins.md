@@ -435,6 +435,9 @@ pipeline {
 }
 ```
 
+--------------------------------------------------------------------------------------------
+Note:
+
 **agent** any      // *Any available agent is getting assigned to the pipeline*
 
 **stage**('Clone') // *Retrieve code from a GitHub repository*
@@ -448,6 +451,14 @@ appcmd stop / start apppool  // Stop / Start an IIS Application Pool
 dotnet publish               // Publish the application and its dependencies to a folder for deployment to a hosting system
 ```
 **stage**('Clean') // *Clean the Workspace. (it is a good practice to erase any files from the workspace after pipelines execution)*
+
+--------------------------------------------------------------------------------------------
+
+After writing the pipeline script, save the pipeline. 
+
+On the left-side navigation pane, click on the "Build Now" button to trigger the pipeline manually.
+
+After the pipeline runs, it will show the status of the pipeline on Jenkins UI as follows.
 
 ![p3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p3.png)
  
