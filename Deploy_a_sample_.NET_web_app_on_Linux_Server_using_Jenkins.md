@@ -147,11 +147,15 @@ Start Jenkins:
 sudo systemctl start jenkins
 ```
 
+Check the status of the Jenkins service
+
 ![jenkins1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins1.png)
 
 ## 6. Configuring Jenkins <a name="6"></a>
 
-### Unlock Jenkins
+### Post-installation setup wizard
+
+Unlock Jenkins
 
 Open a web broswer, type [http://Jenkins server public IP:8080] and wait until the Unlock Jenkins page appears.
 
@@ -173,11 +177,11 @@ Create the first administrator user
 
 ![jenkins11](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/jenkins11.png)
 
-Keep your Jenkins URL. Click Save and Finish.
+Keep your Jenkins URL. Click "Save and Finish".
 
 ![jenkins4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins4.png)
 
-When the Jenkins is ready page appears, click Start using Jenkins.
+When the Jenkins is ready page appears, click "Start using Jenkins".
 
 ![jenkins5](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins5.png)
 
@@ -244,8 +248,9 @@ Once you are done, restart Jenkins once.
 sudo systemctl restart jenkins
 ```
 
+## 7. web <a name="7"></a>
 
-Crate a directory where you deploy your web application
+Create a directory where you deploy your web application
 
 ```sh
 sudo mkdir -p /www/devopsweb
@@ -253,22 +258,17 @@ sudo chown -R root:jenkins /www/
 sudo chmod -R 775 /www/
 ```
 
-```sh
-sudo visudo -f /etc/sudoers
-```
-![sudo](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/sudo.png)
-
-```sh
-sudo usermod -aG sudo jenkins
-```
-![sudo1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/sudo1.png)
+Create a service file for your web application (run your webapp as a service).
 
 ```sh
 sudo nano /etc/systemd/system/devopsweb.service
 ```
+
+Fill in the file with these configurations
+
 ```sh
 [Unit]
-Description=Example .NET Web API App running on Ubuntu
+Description=Example .NET Web App running on Ubuntu 
 
 [Service]
 WorkingDirectory=/www/devopsweb/
@@ -282,10 +282,110 @@ Environment=ASPNETCORE_ENVIRONMENT=Production
 [Install]
 WantedBy=multi-user.target
 ```
+
+Enable the created webapp service 
+
 ```sh
 sudo systemctl enable devopsweb.service
 ```
-build
+
+Jenkins talks to your linux server with a user called “jenkins”. But running shell commands which have "sudo" might not worked as the "jenkins" user doesn’t have access to read passwords from your linux server. We might want to tell the Linux Server not to ask password while executing commands for the "jenkins" user.
+
+Edit the /etc/sudoers file to provide permission to Jenkins user.
+
+```sh
+sudo visudo -f /etc/sudoers
+```
+![sudo](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/sudo.png)
+
+Add the Jenkins user to sudo group.
+```sh
+sudo usermod -aG sudo jenkins
+```
+
+![sudo1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/sudo1.png)
+
+Create a pipeline to build your application
+
+On the Jenkins dashboard, click on "New Item". 
+
+Enter an item name, for example, "devopsweb" and select the "Pipeline" project. Then click OK.
+
+![jenkins8](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins8.png)
+
+In the Configuration Dashboard, click the "Pipeline" button on the left menu:
+
+Scroll down to the "Script" section, and insert the steps needed for running a Jenkins Pipeline.
+
+![jenkins9](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins9.png)
+
+Components of Jenkins Pipeline:
+
+ - The pipeline consists of all the instructions to build, test, and deliver software. It is the key component of a Jenkins Pipeline.
+
+ - An agent is assigned to execute the pipeline on a node and allocate a workspace for the pipeline.
+
+ - A stage is a block that has steps to build, test, and deploy the application. Stages are used to visualize the Jenkins Pipeline processes.
+
+ - A step is a single task to be performed, for example, create a directory, run a docker image, delete a file, etc.
+
+```sh
+pipeline {
+    agent any 
+    
+    stages {
+        stage('Clone') {
+            steps {
+                git branch: 'master',
+                    credentialsId: 'github_key',
+                    url: ‘https://github.com/vottri/DevOpsRepo.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                sh '''
+                    sudo systemctl stop devopsweb.service
+                    dotnet publish DevOpsWeb/DevOpsWeb.csproj -c release -o /www/devopsweb/
+                    sudo systemctl start devopsweb.service
+                '''
+            }
+        }
+    }
+    
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
+```
+
+
+![jenkins10](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/jenkins10.png)
+
+
+You can hover the cursor over the stages in "Stage View" section and choose "View Logs" to see detailed logs of every stages.
+
+Logs from "Clone" Stage:
+
+![log1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/log1.png)
+
+Logs from "Build" Stage:
+
+![log2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/log2.png)
+
+Logs from Post action: cleaning workspace
+
+![log3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/log3.png)
+
+Your web app directory after the build
+
+![webapp2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/webapp2.png)
+
+Check your web app service
+
+![webapp-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/webapp-1.png)
 
 ## 8. Installing Nginx <a name="8"></a>
 
@@ -305,11 +405,15 @@ sudo systemctl start nginx
 
 ![nginx](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/nginx.png)
 
-### Host ASP.NET Core website with Nginx
+### Configure Nginx as a reverse proxy server
 
+Configure Nginx as a reverse proxy to forward requests to ASP.NET Core app:
+
+Create a new file /etc/nginx/sites-available/devopsweb for your webapp. 
 ```sh
 sudo nano /etc/nginx/sites-available/devopsweb
 ```
+Fill in the contents as the following:
 ```sh
 server {
     listen 80;
@@ -326,8 +430,17 @@ server {
     }
 }
 ```
+
+Create a symlink for your webapp in the sites-enabled directory:
+
 ```sh
 sudo ln -s /etc/nginx/sites-available/devopsweb /etc/nginx/sites-enabled/devopsweb
+```
+
+Remove the default website in the sites-enabled directory:
+
+```sh
+rm /etc/nginx/sites-enabled/default
 ```
 
 Restart nginx server.
@@ -336,7 +449,44 @@ Restart nginx server.
 sudo systemctl restart nginx
 ```
 
+![web1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/web1.png)
+
+```sh
+sudo nano /etc/nginx/sites-available/devopsweb
+```
+Modify the server name with your registered domain name.
+```sh
+server {
+    listen 80;
+    server_name mnandnt.com;
+    location / {
+        proxy_pass         https://127.0.0.1:5001;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection keep-alive;
+        proxy_set_header   Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+Restart nginx server.
+
+```sh
+sudo systemctl restart nginx
+```
+
+Acess your web site with the new domain name.
+
+![web2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/web2.png)
+
 ## 10. Configuring SSL Certificate <a name="9"></a>
+
+Switch your website from HTTP to HTTPS using Certbot.
+
+Certbot is a free, open source software tool for automatically using Let’s Encrypt certificates on websites to enable HTTPS for them. 
 
 Install snapd
 
@@ -356,6 +506,8 @@ Install Certbot
 ```sh
 sudo snap install --classic certbot
 ```
+
+![cert-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/cert-1.png)
 
 Ensure that the certbot command can be run.
 
@@ -380,6 +532,10 @@ You might want to restart your nginx server.
 ```sh
 sudo systemctl restart nginx
 ```
+
+Your site after completing Certbot process.
+
+![cert4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/cert4.png)
 
 To confirm that your site is set up securely, visit your website with HTTPS.
 
