@@ -460,7 +460,7 @@ sudo ln -s /etc/nginx/sites-available/devopsweb /etc/nginx/sites-enabled/devopsw
 Remove the default website in the sites-enabled directory:
 
 ```sh
-rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/sites-enabled/default
 ```
 
 Restart nginx server.
