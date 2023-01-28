@@ -2,7 +2,7 @@
 
 ============================================================================================
 
-Contents
+**CONTENTS**
 
 [1. Lab Setup](#1)
 
@@ -26,19 +26,35 @@ Contents
 
 ## 1. Lab Setup <a name="1"></a>
 
+### Create a Windows Server Virtual Machine on Azure (OS: Windows Server 2016 Datacenter)
+
 ![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-1.png)
 
-![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-2.png)
+### Connect to your Virtual Machine
 
-![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-3.png)
+Navigate to "Networking" tab > "Inbound port rules" section, allow your VM's ports 80, 443, 3389 to be accessible from the Internet.
 
-![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-4.png)
+![ws01-2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-2.png)
 
-![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-5.png)
+In the left menu, go down to "Connect" tab, select "RDP". In the "Connect with RDP" page, Select "Download RDP File".
 
-![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-6.png)
+![ws01-3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-3.png)
 
-## Download 
+Open the downloaded RDP file and select Connect when prompted.
+
+![ws01-4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-4.png)
+
+In the Windows Security window, enter the user name and password when you created Azure VM ealier.
+
+![ws01-5](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-5.png)
+
+Select Yes to verify the identity of the virtual machine and finish logging on.
+
+![ws01-6](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-6.png)
+
+### Download the required installation package
+
+When you are inside the remote Windows Server machine, download the prerequisite files.
 
 Download .NET SDK 6.0 (https://dotnet.microsoft.com/en-us/download/dotnet/6.0).
 
