@@ -1,7 +1,8 @@
+# Deploy a sample .NET web app on Linux Server virtual machine using Jenkins
 
 ============================================================================================
 
-Contents
+**CONTENTS**
 
 [1. Lab Setup](#1)
 
@@ -25,12 +26,37 @@ Contents
 
 ## 1. Lab Setup <a name="1"></a>
 
+### Create a Linux Server Virtual Machine on Azure (OS: Ubuntu 20.04)
+
+![ub01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/ub01-1.png)
+
+### Connect to your Virtual Machine
+
+Navigate to "Networking" tab > "Inbound port rules" section, allow your VM's ports 80, 443, 22 to be accessible from the Internet.
+
+![ub01-2](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/ub01-2.png)
+
+Use **PuTTY** for connecting to the Linux Virtual Machine. Enter your Linux machine's public IP address in Host Name and Port will be 22. Click on **Open** button to connect.
+
+![ub01-3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/ub01-3.png)
+
+When you are inside the Linux VMs:
+
+![ub01-4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/ub01-4.png)
+
+Check for working Internet connection.
+
 Update your system
+
 ```sh
 sudo apt-get update
 ```
 
-sudo apt-get install apt-transport-https wget 
+Install some required packages:
+
+```sh
+sudo apt-get -y install wget apt-transport-https
+```
 
 ## 2. Installing Git <a name="2"></a>
 
@@ -87,9 +113,7 @@ Note: You should check which .NET core version you are using in your application
 sudo apt-get -y install aspnetcore-runtime-3.1	
 ```
 
-dotnet --version
-
-dotnet --list-sdks and dotnet --list-runtimes
+![dotnet](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/dotnet.png)
 
 ## 4. Installing Java <a name="4"></a>
 
@@ -531,6 +555,8 @@ Ensure that you have the latest version of snapd.
 sudo snap install core
 sudo snap refresh core
 ```
+
+![cert-0](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/cert-0.png)
 
 Install Certbot
 
