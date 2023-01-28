@@ -1,3 +1,4 @@
+# Deploy a sample .NET web app on Windows Server virtual machine using Jenkins
 
 ============================================================================================
 
@@ -5,29 +6,39 @@ Contents
 
 [1. Lab Setup](#1)
 
-[2. Download](#2)
+[2. Installing IIS web server](#2)
 
-[3. Installing IIS and ASP.NET Modules](#3)
+[3. Installing .NET SDK ](#3)
 
-[4. Installing .NET SDK ](#4)
+[4. Installing Git](#4)
 
-[5. Installing Git](#5)
+[5. Installing Java SDK](#5)
 
-[6. Installing Java SDK](#6)
+[6. Installing Jenkins](#6)
 
-[7. Installing Jenkins](#7)
+[7. Configuring Jenkins](#7)
 
-[8. Configuring Jenkins](#8)
+[8. Creating Jenkins Pipeline](#8)
 
-[9. Creating Jenkins Pipeline ](#9)
-
-[10. Publishing your website and securing it with SSL](#10)
+[9. Publishing your website and securing it with SSL](#9)
 
 ============================================================================================
 
 ## 1. Lab Setup <a name="1"></a>
 
-## 2. Download <a name="2"></a>
+![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-1.png)
+
+![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-2.png)
+
+![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-3.png)
+
+![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-4.png)
+
+![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-5.png)
+
+![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-6.png)
+
+## Download 
 
 Download .NET SDK 6.0 (https://dotnet.microsoft.com/en-us/download/dotnet/6.0).
 
@@ -57,7 +68,7 @@ Downloaded Files.
 
 ![downloads](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/downloads.png)
 
-## 3. Installing IIS and ASP.NET Modules <a name="3"></a>
+## 2. Installing IIS web server <a name="2"></a>
 
 ### Installing IIS Server
 
@@ -113,7 +124,7 @@ Fill in the required information as below. Then Click OK.
 
 ![web6](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/web6.png)
 
-## 4. Installing .NET SDK <a name="4"></a>
+## 3. Installing .NET SDK <a name="3"></a>
 
 ### Install .NET SDK 6.0
 
@@ -135,7 +146,7 @@ Click "Close" once it has been installed successfully.
 
 ![dotnet5](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/dotnet5.png)
 
-## 5. Installing Git <a name="5"></a>
+## 4. Installing Git <a name="4"></a>
 
 Go to your Downloads folder. Double click on downloaded Git application. Click ***Next*** to start installation of Git.
 
@@ -193,7 +204,7 @@ Click ***Finish***.
 
 ![git11](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/git11.png)
 
-## 6. Installing Java Development Kit <a name="6"></a>
+## 5. Installing Java Development Kit <a name="5"></a>
 
 ### Install JDK
 
@@ -242,7 +253,7 @@ When you 're done, Click OK.
 
 ![jv8](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jv8.png)
 
-## 7. Installing Jenkins <a name="7"></a>
+## 6. Installing Jenkins <a name="6"></a>
 
 Double click on the Jenkins installation file to start the installation. You should see the Jenkins welcome page. Click ***Next***.
 
@@ -276,7 +287,7 @@ Once Jenkins is installed, Click ***Finish***.
 
 ![jenkins15](https://github.com/vottri/CICD-pipeline-with-Jenkins/blob/main/images1/jenkins15.png)
 
-## 8. Configuring Jenkins <a name="8"></a>
+## 7. Configuring Jenkins <a name="7"></a>
 
 ### Run Jenkins for the first time
 
@@ -369,7 +380,7 @@ Once you are done, restart Jenkins once.
 
 Confirm the restart and wait for Jenkins to come back up.  When it does, log in with the username and password of the admin user you created earlier.
 
-## 9. Creating Jenkins Pipeline <a name="9"></a>
+## 8. Creating Jenkins Pipeline <a name="8"></a>
 
 ### Create a pipeline to build your application
 
@@ -502,7 +513,7 @@ In your web browser, refreash the "localhost" page to view the changes.
 
 ![p12](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/p12.png)
 
-## 10. Publishing your website and securing it with SSL <a name="10"></a>
+## 9. Publishing your website and securing it with SSL <a name="9"></a>
 
 ### Access your website using domain name
 
