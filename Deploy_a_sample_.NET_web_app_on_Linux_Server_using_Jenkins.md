@@ -40,7 +40,7 @@ Use **PuTTY** for connecting to the Linux Virtual Machine. Enter your Linux mach
 
 ![ub01-3](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/ub01-3.png)
 
-When you are inside the Linux VMs:
+When you are inside the Linux VM:
 
 ![ub01-4](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images2/ub01-4.png)
 
