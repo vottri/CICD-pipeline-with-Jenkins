@@ -26,6 +26,8 @@
 
 ## 1. Lab Setup <a name="1"></a>
 
+Login to Azure portal with your Microsoft Azure account.
+
 ### Create a Windows Server Virtual Machine on Azure (OS: Windows Server 2016 Datacenter)
 
 ![ws01-1](https://raw.githubusercontent.com/vottri/CICD-pipeline-with-Jenkins/main/images1/ws01-1.png)
